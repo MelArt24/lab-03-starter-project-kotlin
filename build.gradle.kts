@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "1.9.10"
     application
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 repositories {
@@ -19,10 +20,9 @@ application {
     mainClass.set("MainKt")
 }
 
-tasks.jar {
+tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
+    archiveFileName.set("app.jar")
     manifest {
         attributes["Main-Class"] = "MainKt"
     }
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from(sourceSets.main.get().output)
 }
